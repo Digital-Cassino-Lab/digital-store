@@ -1,13 +1,13 @@
 const products = [
   {
-  title: "Kit Social News Locali PRO",
-  category: "social",
-  icon: "📰",
-  price: "9€",
-  tag: "ZIP",
-  description: "Pacchetto professionale con copertine Facebook, template post, reel verticali e titoli virali per creator e pagine news.",
-  link: "https://marconeri.gumroad.com/l/kit-social-news-locali-pro"
-},
+    title: "Segnala City Lite",
+    category: "app",
+    icon: "🚨",
+    price: "29€",
+    tag: "WebApp",
+    description: "Mini app per segnalazioni cittadine, condomini, gruppi locali e pagine Facebook.",
+    link: "https://gumroad.com/"
+  },
   {
     title: "Kit Social News Locali",
     category: "social",
@@ -15,7 +15,7 @@ const products = [
     price: "9€",
     tag: "ZIP",
     description: "Template post, copertine Facebook, titoli virali e grafiche per pagine news locali.",
-    link: "link: "https://gumroad.com/"
+    link: "https://gumroad.com/"
   },
   {
     title: "Reel Pack PRO",
@@ -24,7 +24,7 @@ const products = [
     price: "12€",
     tag: "Video",
     description: "Intro, overlay, titoli e idee per reel verticali pronti da personalizzare.",
-    link: "link: "https://gumroad.com/"
+    link: "https://gumroad.com/"
   },
   {
     title: "Template Mini Sito Attività",
