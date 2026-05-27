@@ -1,12 +1,12 @@
 const products = [
   {
-    title: "Segnala City Lite",
-    category: "app",
-    icon: "🚨",
-    price: "29€",
-    tag: "WebApp",
-    description: "Mini app per segnalazioni cittadine, condomini, gruppi locali e pagine Facebook.",
-    link: "https://gumroad.com/"
+    title: "Kit Social News Locali PRO",
+  category: "social",
+  icon: "📰",
+  price: "9€",
+  tag: "ZIP",
+  description: "Pacchetto professionale con copertine Facebook, template post, reel verticali e titoli virali per creator e pagine news.",
+  link: "https://marconeri.gumroad.com/l/kit-social-news-locali-pro"
   },
   {
     title: "Kit Social News Locali",
