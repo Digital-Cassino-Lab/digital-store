@@ -1,107 +1,236 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digital Cassino Lab | Store Digitale</title>
-  <meta name="description" content="App, template, kit social e prodotti digitali pronti da acquistare." />
-  <meta name="theme-color" content="#0b1020" />
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Passaggio Consegne</title>
+  <meta name="theme-color" content="#06111f" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css?v=25" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <div class="logo">DCL</div>
+      <button id="menuBtn" class="icon-btn" title="Menu">☰</button>
       <div>
-        <strong>Digital Cassino Lab</strong>
-        <span>App • Template • Kit Digitali</span>
+        <h1>Passaggio Consegne</h1>
       </div>
     </div>
-    <nav>
-      <a href="#prodotti">Prodotti</a>
-      <a href="#come-funziona">Come funziona</a>
-      <a href="#contatti">Contatti</a>
-    </nav>
+    <div class="top-actions">
+      <span id="clock" class="clock">--</span>
+      <button id="backendBtn" class="ghost-btn hidden" title="Area admin">⚙ Admin</button>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="heroText">
-        <p class="badge">🚀 Store digitale pronto vendita</p>
-        <h1>Creazioni digitali pronte da usare, personalizzare e vendere.</h1>
-        <p class="subtitle">
-          App leggere, template social, kit grafici e strumenti digitali pensati per creator,
-          pagine locali, attività e professionisti.
-        </p>
-        <div class="actions">
-          <a class="btn primary" href="#prodotti">Vedi prodotti</a>
-          <a class="btn secondary" href="#contatti">Richiedi personalizzazione</a>
-        </div>
-      </div>
+  <div id="appAlert" class="app-alert hidden" role="alert" aria-live="assertive">
+    <div class="app-alert-icon">🔔</div>
+    <div class="app-alert-body">
+      <strong id="appAlertTitle">Nuova segnalazione</strong>
+      <p id="appAlertText">È stata inserita una nuova anomalia.</p>
+    </div>
+    <div class="app-alert-actions">
+      <button id="appAlertOpen" type="button" class="primary-btn">Apri</button>
+      <button id="appAlertClose" type="button" class="ghost-btn">Chiudi</button>
+    </div>
+  </div>
 
-      <div class="heroCard">
-        <div class="phoneMockup">
-          <div class="screen">
-            <span class="pill">NEW</span>
-            <h3>Segnala City Lite</h3>
-            <p>Mini app per segnalazioni cittadine, condomini e gruppi locali.</p>
-            <button>Acquista ora</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="toolbar" id="prodotti">
+  <div id="drawerBackdrop" class="drawer-backdrop" aria-hidden="true"></div>
+  <aside id="sideDrawer" class="side-drawer" aria-label="Menu laterale">
+    <div class="drawer-head">
       <div>
-        <h2>Prodotti digitali</h2>
-        <p>Scegli un prodotto e collegalo a Gumroad, Payhip o Etsy.</p>
+        <h2>Menu</h2>
+        <p>Passaggio Consegne</p>
       </div>
-      <input id="searchInput" type="search" placeholder="Cerca prodotto..." />
-    </section>
+      <button id="closeMenuBtn" class="icon-btn" type="button">×</button>
+    </div>
+    <button type="button" class="drawer-stat drawer-alert" data-menu-action="open"><span class="dot red"></span><b id="drawerOpenCount">0</b> anomalie aperte</button>
+    <button type="button" data-menu-action="layout">▦ Layout linea</button>
+    <button type="button" data-menu-action="all">☷ Tutte le anomalie</button>
+    <button type="button" data-menu-action="report">📊 Report anomalie</button>
+    <button type="button" data-menu-action="history">◷ Storico consegne</button>
+    <button type="button" data-menu-action="changeover">🔁 Cambio tipologia</button>
+    <button type="button" data-menu-action="open">● Solo anomalie aperte</button>
+    <button type="button" data-menu-action="refresh">↻ Aggiorna da D1</button>
+    <button type="button" data-menu-action="notify">🔔 Attiva avviso sonoro</button>
+    <button type="button" data-menu-action="areas">◎ Mostra/Nascondi aree cliccabili</button>
+    <button type="button" data-menu-action="focus">⛶ Mappa grande</button>
+    <button type="button" data-menu-action="export">⇩ Esporta consegne</button>
+    <button type="button" data-menu-action="print">⎙ Stampa / PDF</button>
+    <button type="button" data-menu-action="access">🔑 PIN collegamento app</button>
+    <button type="button" data-menu-action="backend">🔐 Area admin backend</button>
+    <p class="drawer-note">Le aree cliccabili sono strette e posizionate solo sulle scritte, così non coprono i punti vicini. Usa “Mostra aree cliccabili” per controllarle.</p>
+  </aside>
 
-    <section class="filters">
-      <button class="filter active" data-category="all">Tutti</button>
-      <button class="filter" data-category="app">App</button>
-      <button class="filter" data-category="social">Social</button>
-      <button class="filter" data-category="video">Video</button>
-      <button class="filter" data-category="template">Template</button>
-    </section>
+  <nav class="zone-tabs" aria-label="Selezione zona">
+    <button class="zone-tab active" data-zone="1">Zona 1</button>
+    <button class="zone-tab" data-zone="2">Zona 2</button>
+    <button class="zone-tab" data-zone="3">Zona 3</button>
+  </nav>
 
-    <section class="grid" id="productGrid"></section>
+  <main class="app-shell">
+    <section class="main-panel">
+      <div class="panel-title-row">
+        <div>
+          <h2 id="zoneTitle">ZONA 1 - Layout interattivo</h2>
+          <p>Clicca sulle scritte del layout oppure usa il menu “Seleziona punto”.</p>
+        </div>
+        <div class="sync-status" id="syncStatus">Locale</div>
+      </div>
 
-    <section class="info" id="come-funziona">
-      <h2>Come funziona</h2>
-      <div class="steps">
-        <article>
-          <span>1</span>
-          <h3>Scegli il prodotto</h3>
-          <p>Ogni scheda mostra funzioni, prezzo e anteprima.</p>
-        </article>
-        <article>
-          <span>2</span>
-          <h3>Acquista online</h3>
-          <p>Il pulsante porta alla pagina pagamento del prodotto.</p>
-        </article>
-        <article>
-          <span>3</span>
-          <h3>Scarica e usa</h3>
-          <p>Ricevi file ZIP, istruzioni e materiale pronto.</p>
-        </article>
+      <div class="toolbar">
+        <label class="select-wrap">
+          <span>Seleziona punto</span>
+          <select id="pointSelect"></select>
+        </label>
+        <label class="select-wrap small">
+          <span>Stato</span>
+          <select id="statusFilter">
+            <option value="tutte">Tutte</option>
+            <option value="aperta">Aperte</option>
+            <option value="lavorazione">In lavorazione</option>
+            <option value="risolta">Risolte</option>
+          </select>
+        </label>
+        <div class="zoom-box">
+          <button id="zoomOut" class="ghost-btn">−</button>
+          <strong id="zoomText">100%</strong>
+          <button id="zoomIn" class="ghost-btn">+</button>
+        </div>
+        <label class="check-wrap">
+          <input type="checkbox" id="showAreas" />
+          <span>Mostra aree cliccabili</span>
+        </label>
+      </div>
+
+      <div class="hint-box">
+        Su telefono la mappa si adatta alla larghezza. Usa +/− per ingrandire. Le aree cliccabili sono state ridotte alla grandezza delle scritte: attiva “Mostra aree cliccabili” solo per controllare l’allineamento.
+      </div>
+
+      <div class="layout-card">
+        <div id="mapInner" class="map-inner">
+          <img id="layoutImage" src="img/zona1.jpg" alt="Layout Zona 1" />
+          <div id="hotspotLayer" class="hotspot-layer" aria-label="Punti cliccabili"></div>
+        </div>
       </div>
     </section>
 
-    <section class="contact" id="contatti">
-      <h2>Vuoi una versione personalizzata?</h2>
-      <p>Posso modificare nome, logo, colori, testi e funzioni in base alla tua attività.</p>
-      <a class="btn primary" href="mailto:marconeri70@gmail.com?subject=Richiesta%20Digital%20Cassino%20Lab">Contattami</a>
-    </section>
+    <aside id="detailPanel" class="detail-panel" aria-live="polite">
+      <div class="detail-head">
+        <div>
+          <h3 id="detailTitle">Nessun punto selezionato</h3>
+          <p id="detailSubtitle">Seleziona una scritta sul layout.</p>
+        </div>
+        <button id="closeDetail" class="icon-btn">×</button>
+      </div>
+
+      <div id="pointSummary" class="point-summary"></div>
+
+      <button id="newAnomalyBtn" class="primary-btn full">+ Nuova anomalia</button>
+
+      <form id="anomalyForm" class="anomaly-form hidden">
+        <h4>Inserisci anomalia</h4>
+        <label>Titolo breve
+          <input id="aTitle" required placeholder="Esempio: sensore sporco, robot in errore..." />
+        </label>
+        <div class="form-grid">
+          <label>Turno
+            <select id="aShift">
+              <option>Mattina</option>
+              <option>Pomeriggio</option>
+              <option>Notte</option>
+            </select>
+          </label>
+          <label>Priorità
+            <select id="aPriority">
+              <option value="alta">Alta</option>
+              <option value="media" selected>Media</option>
+              <option value="bassa">Bassa</option>
+            </select>
+          </label>
+        </div>
+        <label>Tipo problema
+          <select id="aProblemType">
+            <option value="sensore">Sensore</option>
+            <option value="meccanica">Meccanica</option>
+            <option value="elettrica">Elettrica</option>
+            <option value="robot">Robot</option>
+            <option value="visione_keyence">Visione / Keyence</option>
+            <option value="misura">Misura / calibrazione</option>
+            <option value="gioco_radiale">Gioco radiale</option>
+            <option value="scorrevolezza">Scorrevolezza</option>
+            <option value="lavatrice">Lavatrice</option>
+            <option value="pesatura_grasso">Pesatura / grasso</option>
+            <option value="sicurezza">Sicurezza</option>
+            <option value="altro" selected>Altro</option>
+          </select>
+        </label>
+        <label>Descrizione
+          <textarea id="aDescription" required placeholder="Descrivi cosa è successo e quando si presenta."></textarea>
+        </label>
+        <label>Intervento / consegna al turno successivo
+          <textarea id="aAction" placeholder="Cosa è stato fatto e cosa deve controllare il turno successivo."></textarea>
+        </label>
+        <label>Operatore
+          <input id="aOperator" placeholder="Nome operatore" />
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">Salva</button>
+          <button type="button" id="cancelForm" class="ghost-btn">Annulla</button>
+        </div>
+      </form>
+
+      <div class="list-head">
+        <h4>Anomalie del punto</h4>
+        <span id="pointCount" class="pill">0</span>
+      </div>
+      <div id="anomalyList" class="anomaly-list empty">Nessuna anomalia selezionata.</div>
+    </aside>
   </main>
 
-  <footer>
-    <p>© 2026 Digital Cassino Lab — Prodotti digitali e webapp pronte all’uso.</p>
+  <footer class="bottom-bar">
+    <button id="openAnomaliesBtn" type="button" class="stat-card red bottom-open-btn" title="Apri anomalie aperte"><span></span><b id="openCount">0</b> anomalie aperte</button>
+    <div>Ultimo aggiornamento: <b id="lastUpdate">--</b></div>
+    <div class="footer-actions">
+      <button id="refreshBtn" class="ghost-btn">↻ Aggiorna</button>
+      <button id="exportBtn" class="ghost-btn">⇩ Esporta</button>
+      <button id="printBtn" class="ghost-btn">⎙ Stampa</button>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <dialog id="accessDialog" class="dialog">
+    <form method="dialog" class="dialog-card">
+      <h3>PIN collegamento app</h3>
+      <p>Inserisci il PIN unico dato dall’amministratore. Lo stesso PIN collega tutti i telefoni e PC allo stesso registro condiviso.</p>
+      <label>PIN app
+        <input id="userPinInput" type="password" inputmode="numeric" autocomplete="current-password" placeholder="PIN app" />
+      </label>
+      <div class="dialog-actions">
+        <button id="saveUserPin" class="primary-btn" value="default">Collega</button>
+        <button class="ghost-btn" value="cancel">Chiudi</button>
+      </div>
+      <p id="userPinMsg" class="small-msg"></p>
+    </form>
+  </dialog>
+
+  <dialog id="backendDialog" class="dialog">
+    <form method="dialog" class="dialog-card">
+      <h3>Area admin - Backend condiviso</h3>
+      <p>Questa sezione serve solo a chi mette in funzione l’app. Gli operatori devono usare soltanto il PIN collegamento app.</p>
+      <label>URL API Cloudflare Worker
+        <input id="apiUrlInput" placeholder="https://passaggio-consegne-api.tuo-account.workers.dev" />
+      </label>
+      <label>Chiave scrittura legacy / emergenza
+        <input id="apiKeyInput" type="password" placeholder="APP_WRITE_KEY opzionale" />
+      </label>
+      <div class="dialog-actions">
+        <button id="saveBackend" class="primary-btn" value="default">Salva</button>
+        <button id="testBackend" class="ghost-btn" value="default">Test</button>
+        <button class="ghost-btn" value="cancel">Chiudi</button>
+      </div>
+      <p id="backendMsg" class="small-msg"></p>
+    </form>
+  </dialog>
+
+  <script src="app.js?v=25"></script>
 </body>
 </html>

@@ -1,30 +1,38 @@
-const CACHE_NAME = "digital-cassino-lab-v1";
-const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./style.css",
-  "./script.js",
-  "./manifest.webmanifest"
+const CACHE_NAME = 'passaggio-consegne-v25';
+const ASSETS = [
+  './index.html?v=25',
+  './style.css?v=25',
+  './app.js?v=25',
+  './manifest.json',
+  './img/zona1.jpg',
+  './img/zona2.jpg',
+  './img/zona3.jpg',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
-self.addEventListener("install", event => {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
-self.addEventListener("activate", event => {
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.map(key => key !== CACHE_NAME ? caches.delete(key) : null))
-    )
+    caches.keys()
+      .then(keys => Promise.all(keys.map(k => k !== CACHE_NAME ? caches.delete(k) : null)))
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-self.addEventListener("fetch", event => {
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  if (url.pathname.includes('/api/')) return;
   event.respondWith(
-    caches.match(event.request).then(response => response || fetch(event.request))
+    fetch(event.request).catch(() =>
+      caches.match(event.request).then(res => res || caches.match('./index.html?v=25'))
+    )
   );
 });
