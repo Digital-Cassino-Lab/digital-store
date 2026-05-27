@@ -15,7 +15,7 @@ const products = [
     price: "9€",
     tag: "ZIP",
     description: "Template post, copertine Facebook, titoli virali e grafiche per pagine news locali.",
-    link: "https://gumroad.com/"
+    link: "link: "https://marconeri.gumroad.com/l/kit-social-news-locali-pro""
   },
   {
     title: "Reel Pack PRO",
@@ -24,7 +24,7 @@ const products = [
     price: "12€",
     tag: "Video",
     description: "Intro, overlay, titoli e idee per reel verticali pronti da personalizzare.",
-    link: "https://gumroad.com/"
+    link: "link: "https://gumroad.com/""
   },
   {
     title: "Template Mini Sito Attività",
